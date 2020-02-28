@@ -13,7 +13,7 @@ from trainfacecla.faceclanet.shufflenetv2 import getShufflenetV2
 num_gpus = 1
 ctx = [mx.gpu(i) for i in range(num_gpus)]
 
-net = getShufflenetV2(classes=3, type='1x')
+net = getShufflenetV2(classes=2, type='2x')
 net.initialize(mx.init.Xavier())
 net.collect_params().reset_ctx(ctx)
 net.hybridize()

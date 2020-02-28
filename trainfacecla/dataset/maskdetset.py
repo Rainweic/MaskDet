@@ -16,11 +16,11 @@ class LoadDataset(Dataset):
         super(LoadDataset, self).__init__()
         maskPath = os.path.join(path, "mask")
         nomaskPath = os.path.join(path, "nomask")
-        otherPath = os.path.join(path, "other")
+        # otherPath = os.path.join(path, "other")
         maskList = [(os.path.join(maskPath, i), 0) for i in os.listdir(maskPath)]
         nomaskList = [(os.path.join(nomaskPath, i), 1) for i in os.listdir(nomaskPath)]
-        other = [(os.path.join(otherPath, i), 2) for i in os.listdir(otherPath)]
-        self.all = maskList + nomaskList + other
+        # other = [(os.path.join(otherPath, i), 2) for i in os.listdir(otherPath)]
+        self.all = maskList + nomaskList #+ other
         self._transform = trainsform
 
     def __getitem__(self, idx):
