@@ -16,5 +16,7 @@ img = img[np.newaxis, :]
 
 img = nd.array(img)
 out = net(img)
+out_index = int(nd.argmax(out, axis=1).asnumpy()[0])
 
-print(out)
+label = ["mask", "nomask"]
+print(label[out_index])
