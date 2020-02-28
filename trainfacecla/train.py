@@ -1,24 +1,18 @@
 from __future__ import division
 
-import argparse, time, logging, random, math
-
+import time
 import numpy as np
 import mxnet as mx
 
-from mxnet import gluon, nd
+from mxnet import gluon
 from mxnet import autograd as ag
-from mxnet.gluon import nn
 from mxnet.gluon.data.vision import transforms
-
-from gluoncv.model_zoo import get_model
 from gluoncv.utils import makedirs, TrainingHistory
-from gluoncv.data import transforms as gcv_transforms
-from train.faceclanet.shufflenetv2 import getShufflenetV2
+from trainfacecla.faceclanet.shufflenetv2 import getShufflenetV2
 
 num_gpus = 1
 ctx = [mx.gpu(i) for i in range(num_gpus)]
 
-# Get the model CIFAR_ResNet20_v1, with 10 output classes, without pre-trained weights
 net = getShufflenetV2(classes=3, type='1x')
 net.initialize(mx.init.Xavier())
 net.collect_params().reset_ctx(ctx)
@@ -47,16 +41,16 @@ num_workers = 8
 # Calculate effective total batch size
 batch_size = per_device_batch_size * num_gpus
 
-from train.dataset.maskdetset import LoadDataset
+from trainfacecla.dataset.maskdetset import LoadDataset
 
-trainDataset = LoadDataset("./train", transform_train)
+trainDataset = LoadDataset("./trainfacecla", transform_train)
 valDataset = LoadDataset("./val", transform_test)
 
 train_data = gluon.data.DataLoader(
     trainDataset,
     batch_size=batch_size, shuffle=True, last_batch='discard', num_workers=num_workers)
 
-# Set train=False for validation data
+# Set trainfacecla=False for validation data
 val_data = gluon.data.DataLoader(
     valDataset,
     batch_size=batch_size, shuffle=False, num_workers=num_workers)
@@ -94,7 +88,7 @@ epochs = 240
 
 lr_decay_count = 0
 
-print("begin train")
+print("begin trainfacecla")
 for epoch in range(epochs):
     tic = time.time()
     train_metric.reset()
@@ -134,7 +128,7 @@ for epoch in range(epochs):
 
     # Update history and print metrics
     train_history.update([1 - acc, 1 - val_acc])
-    print('[Epoch %d] train=%f val=%f loss=%f time: %f' %
+    print('[Epoch %d] trainfacecla=%f val=%f loss=%f time: %f' %
           (epoch, acc, val_acc, train_loss, time.time() - tic))
 
     net.save_parameters('mask-Epoch-{}-ValAcc-{}.params'.format(epoch, val_acc))

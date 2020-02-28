@@ -6,7 +6,7 @@ setup(
     author="rainweic",
     url="None",
     description="mask det",
-    packages=find_packages(exclude=("model", "train")),
+    packages=find_packages(exclude=("model", "trainfacecla")),
     python_requires=">=3.5",
     install_requires=[
         "mxnet",

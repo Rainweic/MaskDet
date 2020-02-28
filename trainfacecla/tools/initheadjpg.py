@@ -43,7 +43,7 @@ def getBBox(node):
     return xmin, ymin, xmax, ymax
 
 if __name__ == '__main__':
-    data_root = "/Users/rainweic/Downloads/mask/train"
+    data_root = "/Users/rainweic/Downloads/mask/trainfacecla"
 
     img_root = os.path.join(data_root, "jpg")
     label_root = os.path.join(data_root, "label")
