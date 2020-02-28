@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 from mxnet import nd
 
 from trainfacecla.faceclanet.shufflenetv2 import getShufflenetV2
@@ -10,6 +11,8 @@ img = cv2.imread("mask.jpg")
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 img = cv2.resize(img, (224, 224))
 img = img / 255
+img = np.transpose(img, (2, 0, 1))
+img = img[np.newaxis, :]
 
 img = nd.array(img)
 out = net(img)
