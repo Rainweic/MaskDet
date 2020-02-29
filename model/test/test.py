@@ -15,6 +15,7 @@ test_jpg_root = "/Users/rainweic/Downloads/mask/facedet"
 test_jpgs = os.listdir(test_jpg_root)
 test_jpgs = sorted(test_jpgs)
 test_jpgs = [os.path.join(test_jpg_root, i) for i in test_jpgs]
+# print(test_jpgs)
 
 f = open("result.csv",'w',encoding='utf-8')
 csv_writer = csv.writer(f)

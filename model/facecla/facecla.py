@@ -5,13 +5,17 @@ from model.facecla.shufflenetv2 import getShufflenetV2
 
 class FaceCla(object):
 
-    def __init__(self, params_path, net_type='2x'):
+    def __init__(self, params_path, ctx, net_type='2x'):
         self.params_path = params_path
-        self.net = getShufflenetV2(classes=2, type=net_type)
         self.label = ["mask", "nomask"]
+        self.net_type = net_type
+        self.ctx = ctx
 
     def load_model(self):
+        self.net = getShufflenetV2(classes=2, type=self.net_type)
         self.net.load_parameters(self.params_path)
+        self.net.collect_params().reset_ctx(self.ctx)
+        self.net.hybridize()
 
     def pre_img(self, img):
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
