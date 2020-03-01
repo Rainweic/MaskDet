@@ -76,12 +76,14 @@ class Mask(object):
 
             if self.facecla_net.is_without_mask(face):
                 num_face_without_mask += 1
-                print("nomask")
+                label = "nomask"
             else:
-                print("mask")
+                label = "mask"
                 num_face_with_mask += 1
             # test
+            print(label)
             print(num_face_with_mask, num_face_without_mask)
+            cv.imwrite("headimg/" + str(time.time()) + "  " + label + ".jpg", face)
             # cv.imshow("face", face)
             # cv.waitKey(0)
 
