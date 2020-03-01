@@ -1,10 +1,16 @@
 import os
 import csv
 from model.mask import Mask
+import cv2 as cv
+import sys
+import numpy as np
+import datetime
+import glob
+
 
 mask = Mask(
-    facedet_model="/Users/rainweic/DeepLearning/MaskDet-opensource/params",
-    facecla_model="/Users/rainweic/DeepLearning/MaskDet-opensource/params/best-0.889.params",
+    facedet_model="params/R50",
+    facecla_model="params/best-0.889.params",
     use_gpu=False
 )
 
